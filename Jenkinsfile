@@ -21,7 +21,7 @@ pipeline {
                 sh 'npm install'
                 sh 'npm run build'
                 sh 'npm prune --production'
-                sh 'cp Dockerfile dist/' // Assuming your Dockerfile is in the root directory
+    
             }
         }
 
