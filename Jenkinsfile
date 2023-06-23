@@ -17,6 +17,7 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh 'export NODE_OPTIONS=--openssl-legacy-provider'
                 sh 'npm install'
                 sh 'npm run build'
                 sh 'npm prune --production'
@@ -27,7 +28,7 @@ pipeline {
         stage('Docker Build and Push') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                         def dockerImage = docker.build("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}")
                         dockerImage.push()
                     }
